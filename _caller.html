@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Page Title</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/peerjs/0.3.14/peer.min.js"></script>
+
+  <script>
+    console.log('Caller');
+    var peer = new Peer({ key: '4er4hhyoxosz6w29' });
+
+    peer.on('open', function (id) {
+      console.log('My peer ID is: ' + id);
+    });
+
+    var conn = peer.connect('oi2lqt53rwmnp14i'); // ****
+    conn.on('open', function () {
+      console.log('open')
+      setInterval(function () {
+        console.log('sending hello');
+
+        conn.send('hello');
+      }, 500);
+    });
+
+  </script>
+</head>
+
+<body>
+  Right
+</body>
+
+</html>
