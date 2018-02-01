@@ -1,1 +1,3 @@
-real-talk
+# Real Talk
+
+Real-time Decentralized Chat

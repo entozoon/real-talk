@@ -1,0 +1,26 @@
+{
+  "name": "real-talk",
+  "version": "1.0.0",
+  "description": "Real-time Decentralized Chat",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/entozoon/real-talk.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/entozoon/real-talk/issues"
+  },
+  "homepage": "https://github.com/entozoon/real-talk#readme",
+  "devDependencies": {
+    "electron": "1.7.12",
+    "electron-reload": "^1.2.2",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "socket.io": "^2.0.4"
+  }
+}
