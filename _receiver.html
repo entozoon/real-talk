@@ -12,13 +12,11 @@
 
   <script>
     console.log('Receiver');
-    var peer = new Peer({ key: '4er4hhyoxosz6w29' });
-
+    var peer = new Peer({ key: '4er4hhyoxosz6w29' }); // ****
 
     peer.on('open', function (id) {
       console.log('My peer ID is: ' + id);
     });
-
 
     peer.on('connection', function (conn) {
       console.log('connection')
@@ -27,7 +25,6 @@
         console.log(data);
       });
     });
-
   </script>
 </head>
 

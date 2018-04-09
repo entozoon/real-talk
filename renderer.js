@@ -24,29 +24,36 @@ import ReactDOM from "react-dom";
 //   console.log(event.data);
 // };
 
-let receive = document.getElementById("receive");
-console.log("Receiver");
-receive.innerHTML = receive.innerHTML + "Receiver";
-var peer = new Peer({ key: "4er4hhyoxosz6w29" });
-
-peer.on("open", function(id) {
-  console.log("My peer ID is: " + id);
-  receive.innerHTML = receive.innerHTML + ("My peer ID is: " + id);
-});
-
-peer.on("connection", function(conn) {
-  console.log("connection");
-  receive.innerHTML = receive.innerHTML + "connection";
-  conn.on("data", function(data) {
-    // Will print 'hi!'
-    console.log(data);
-    receive.innerHTML = receive.innerHTML + data;
-  });
-});
-
 class App extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = { debug: null };
+  }
+  componentDidMount() {
+    this.peer = new Peer({ key: "4er4hhyoxosz6w29" }); // ****
+    this.setState({
+      debug: "Waiting"
+    });
+    this.peer.on("open", function(id) {
+      this.setState({
+        debug: this.state.debug + "My peer ID is: " + id + "\n"
+      });
+    });
+    this.peer.on("connection", function(conn) {
+      this.setState({
+        debug: this.state.debug + "connection\n"
+      });
+      conn.on("data", function(data) {
+        // Will print 'hi!'
+        console.log(data);
+        receive.innerHTML = receive.innerHTML + data;
+      });
+    });
+    var conn = this.peer.connect("4er4hhyoxosz6w29"); // ****
+  }
   render() {
-    return <div>haaaaaa!</div>;
+    return <div>{this.state.debug}</div>;
   }
 }
 
