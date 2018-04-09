@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
+var Peer = require("simple-peer");
 
 // var pc = new RTCPeerConnection({
 //   optional: [{ RtpDataChannels: true }]
@@ -31,16 +32,26 @@ class App extends React.Component {
     this.state = { debug: null };
   }
   componentDidMount() {
-    this.peer = new Peer({ key: "4er4hhyoxosz6w29" }); // ****
+    // this.peer = new Peer({ key: "4er4hhyoxosz6w29" }); // ****
+
+    this.peer = new Peer("someid", {
+      host: "localhost",
+      port: 1235,
+      path: "/real-talk"
+    });
+    // console.log(this.peer);
+
     this.setState({
       debug: "Waiting"
     });
     this.peer.on("open", function(id) {
+      console.log("open");
       this.setState({
         debug: this.state.debug + "My peer ID is: " + id + "\n"
       });
     });
     this.peer.on("connection", function(conn) {
+      console.log("connection");
       this.setState({
         debug: this.state.debug + "connection\n"
       });
@@ -50,7 +61,7 @@ class App extends React.Component {
         receive.innerHTML = receive.innerHTML + data;
       });
     });
-    var conn = this.peer.connect("4er4hhyoxosz6w29"); // ****
+    // var conn = this.peer.connect("4er4hhyoxosz6w29"); // ****
   }
   render() {
     return <div>{this.state.debug}</div>;
