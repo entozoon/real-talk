@@ -5,8 +5,10 @@
   "main": "main.js",
   "scripts": {
     "start": "electron . ",
-    "build": "electron-packager . --out=dist --overwrite --version-string.FileDescription=real-talk --no-package-manager",
-    "server": "node server"
+    "build":
+      "electron-packager . --out=dist --overwrite --version-string.FileDescription=real-talk --no-package-manager",
+    "server": "node server",
+    "peerjs": "peerjs --port 9000 --key peerjs"
   },
   "repository": {
     "type": "git",
@@ -29,6 +31,7 @@
     "socket.io": "^2.0.4"
   },
   "dependencies": {
+    "electron-webrtc": "^0.3.0",
     "express": "^4.16.3",
     "getconfig": "^4.4.1",
     "node-uuid": "^1.4.8",

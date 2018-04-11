@@ -1,8 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom";
 // var Peer = require("simple-peer");
+var Peer = require("peerjs");
 // const peerJs = require("peerjs-nodejs");
-import SimpleWebRTC from "simplewebrtc";
+// import SimpleWebRTC from "simplewebrtc";
 
 // var pc = new RTCPeerConnection({
 //   optional: [{ RtpDataChannels: true }]
@@ -38,19 +39,70 @@ class App extends React.Component {
     console.log("clientId", this.clientId);
   }
   componentDidMount() {
-    var webrtc = new SimpleWebRTC({
-      // url: "localhost"
-      url: "localhost:9000"
+    var peer = new Peer(this.clientId, {
+      host: "localhost",
+      port: 9000,
+      path: "/peerjs"
     });
-    // 3. Tell it to join a room when ready
-    // we have to wait until it's ready
-    webrtc.on("readyToCall", function() {
-      // you can name it anything
-      webrtc.joinRoom("your awesome room name");
+    // console.log(peer);
+
+    peer.on("connection", function(conn) {
+      console.log("CONNECTION", conn);
+
+      // Client connected to me, let's connect back
+      var conn2 = peer.connect("client");
+      conn2.on("open", function() {
+        console.log("OPEN");
+        conn2.send("Hey from server?");
+      });
+
+      // Received message
+      conn.on("data", function(data) {
+        console.log("data", data);
+      });
     });
-    webrtc.on("connectionReady", function(id) {
-      console.log("connectionReady", id);
+
+    if (this.clientId == "server") {
+      return;
+    }
+
+    //
+    // CLIENT
+    //
+    console.log("connecting to server..");
+
+    var conn = peer.connect("server");
+
+    conn.on("open", function() {
+      console.log("OPEN");
+      conn.send("Hey from client?");
     });
+
+    // document.getElementById('input').addEventListener('keyup', function(e) {
+    //   if (e.keyCode == 13) {
+    //       conn.send(this.value);
+    //       var pre = document.getElementById('chat');
+    //       var textContent = document.createTextNode("You said: " + this.value + '\n');
+    //       pre.appendChild(textContent);
+    //       this.value = '';
+    //   }
+    // });
+
+    //
+
+    // var webrtc = new SimpleWebRTC({
+    //   // url: "localhost"
+    //   url: "localhost:9000"
+    // });
+    // // 3. Tell it to join a room when ready
+    // // we have to wait until it's ready
+    // webrtc.on("readyToCall", function() {
+    //   // you can name it anything
+    //   webrtc.joinRoom("your awesome room name");
+    // });
+    // webrtc.on("connectionReady", function(id) {
+    //   console.log("connectionReady", id);
+    // });
 
     //
     // this.peer = new Peer("someid", {
