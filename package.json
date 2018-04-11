@@ -4,7 +4,7 @@
   "description": "Real-time Decentralized Chat",
   "main": "main.js",
   "scripts": {
-    "start": "electron .",
+    "start": "electron . ",
     "build": "electron-packager . --out=dist --overwrite --version-string.FileDescription=real-talk --no-package-manager",
     "server": "node server"
   },
@@ -19,14 +19,24 @@
   },
   "homepage": "https://github.com/entozoon/real-talk#readme",
   "devDependencies": {
+    "babel-cli": "^6.26.0",
     "electron-packager": "10.1.2",
     "electron-prebuilt-compile": "1.7.11",
+    "peerjs-nodejs": "^1.1.3",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "simple-peer": "^9.0.0",
     "socket.io": "^2.0.4"
   },
   "dependencies": {
-    "peer": "^0.2.8"
+    "express": "^4.16.3",
+    "getconfig": "^4.4.1",
+    "node-uuid": "^1.4.8",
+    "peer": "^0.2.8",
+    "pem": "^1.12.5",
+    "signal-master": "^1.0.1",
+    "simplewebrtc": "^3.0.1",
+    "wrtc": "^0.1.1",
+    "yetify": "^0.1.0"
   }
 }

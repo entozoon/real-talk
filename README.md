@@ -5,7 +5,8 @@ Real-time Decentralized Chat
 ## Use
 
     npm i
-    npm start
+    npm start foo
+    npm start bar
 
 ## Host (only needs the one - to be put live at some point)
 
